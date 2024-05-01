@@ -1,3 +1,9 @@
 import "./App.css";
-
-export function App() {}
+import { Teacher } from "./components/teacherCard";
+export function App() {
+  return (
+    <div>
+      <Teacher />
+    </div>
+  );
+}
