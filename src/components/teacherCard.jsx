@@ -1,33 +1,14 @@
-import { Star } from "./images/svgImages";
 import { TranslationIcon } from "./images/svgImages";
 import json from "./data.json";
 import styles from "./teacherCard.module.css";
 import { AllSpeakelanguage } from "./language";
+import { Avatar } from "./avatar";
 
 export function Teacher() {
   return (
     <section className={styles.sectionTeacherCard}>
       <div className={styles.cardFlexWrap}>
-        <div className={styles.avatarWrap}>
-          <img
-            className={styles.avatar}
-            src={json.data[0].teacher_info.video_pic_url}
-            width="76"
-            alt=""
-          ></img>
-          <img src={json.data[0].teacher_info.avatar_file_name} alt=""></img>
-          <div className={styles.ratingWrap}>
-            <div className={styles.rating}>
-              <Star />{" "}
-              <span className={styles.ratingNumber}>
-                {json.data[0].teacher_info.pro_rating}
-              </span>
-            </div>
-            <div className={styles.numberOfLessons}>
-              <span> {json.data[0].teacher_info.session_count} </span>Lessons
-            </div>
-          </div>
-        </div>
+        <Avatar />
         <div>
           <h3 className={styles.nickname}>{json.data[0].user_info.nickname}</h3>
           <img className="verifiedIdentity" src="" alt=""></img>
@@ -49,11 +30,6 @@ export function Teacher() {
             </span>
             {json.data[0].teacher_info.intro}
           </p>
-
-          <div className="translation">
-            <TranslationIcon />
-            <span className="ShowTranslation">{}</span>
-          </div>
 
           <div className={styles.trialLessons}>
             <div className="priceTrial">
