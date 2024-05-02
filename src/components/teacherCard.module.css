@@ -27,6 +27,7 @@ border-radius: 50%;
 }
 .ratingWrap{
     margin-top: 5px;
+    
 }
 
 .rating{
@@ -34,6 +35,7 @@ border-radius: 50%;
     justify-content: flex-start;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
 }
 .ratingNumber{
     font-size: 14px;
@@ -80,7 +82,7 @@ border-radius: 50%;
 }
 
 .speakLanguage{
-    /* margin: 0px 4px; */
+  
 margin-top: 5px;
 margin-left: 4px;
 margin-right: 4px;
@@ -107,6 +109,7 @@ margin-right: 4px;
 .trialLessons{
     display:flex;
 justify-content: space-between;
+margin-top: 16px;
 }
 
 .currency,.price{
@@ -124,26 +127,28 @@ justify-content: space-between;
 
 .buttonTrialWrap{
     display: flex;
-justify-content: space-around;
+    justify-content: space-around;
     height: 32px;
    width: 150px;
 }
 
 .bookTrial{
     color: #515164;
-        background-color: #f5f6f9;
-        border-color: #f5f6f9;
-        height: 32px;
-            padding: 6px 16px;
-            border-radius: 16px;
-                min-width: 80px;
-                    font-size: 14px;
-                    font-weight: 700;
-                    font-weight: 700;
-                        line-height: 1;
-                        letter-spacing: .75px;
-                        white-space: nowrap;
-                        text-align: center;
-                        padding-left: 16px;
-                        padding-right: 16px;
+    background-color: #f5f6f9;
+    border-color: #f5f6f9;
+    height: 32px;
+    padding: 6px 16px;
+    border-radius: 16px;
+    min-width: 80px;
+    font-size: 14px;
+    font-weight: 700;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: .75px;
+    white-space: nowrap;
+    text-align: center;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }

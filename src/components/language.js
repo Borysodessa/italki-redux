@@ -1,13 +1,15 @@
-import json from "./data.json";
+import styles from "./teacherCard.module.css";
 
-export function AllSpeakelanguage() {
-  return json.data[0].teacher_info.teach_language
-    .map((el) => el["language"])
-    .concat(
-      json.data[0].teacher_info.also_speak.map((el) => {
-        return el["language"];
-      })
-    )
-    .slice(0, 5)
-    .join(", ");
+export function AllSpeakelanguage({ teacherInfo }) {
+  return (
+    <div className={styles.languageFlexWrap}>
+      <p className={styles.teach_language}>speaks: </p>
+      <span className={styles.speakLanguage}>
+        {[...teacherInfo.teach_language, ...teacherInfo.also_speak]
+          .map((el) => el["language"])
+          .slice(0, 5)
+          .join(", ")}
+      </span>
+    </div>
+  );
 }
