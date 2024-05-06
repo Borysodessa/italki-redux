@@ -1,6 +1,6 @@
 import styles from "./teacherCard.module.css";
 
-export function AllSpeakelanguage({ teacherInfo }) {
+export function AllSpeakeLanguage({ teacherInfo }) {
   return (
     <div className={styles.languageFlexWrap}>
       <p className={styles.teach_language}>speaks: </p>
