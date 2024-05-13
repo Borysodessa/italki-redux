@@ -1,4 +1,4 @@
-import styles from "./teacherCard.module.css";
+import styles from "../styles/teacherCard.module.css";
 
 export function TitleAndJob({ teacherInfo, userInfo }) {
   return (

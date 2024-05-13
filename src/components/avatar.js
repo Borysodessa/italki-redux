@@ -1,4 +1,4 @@
-import styles from "./teacherCard.module.css";
+import styles from "../styles/teacherCard.module.css";
 
 import { Star } from "./images/svgImages";
 export function Avatar({ teacherInfo }) {

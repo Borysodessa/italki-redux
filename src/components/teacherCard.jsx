@@ -1,16 +1,11 @@
-import styles from "./teacherCard.module.css";
+import styles from "../styles/teacherCard.module.css";
 import { AllSpeakeLanguage } from "./language";
 import { Avatar } from "./avatar";
 import { Trial } from "./trialLessons";
 import { AboutMe } from "./aboutMe";
 import { TitleAndJob } from "./titleAndJob";
 
-export function Teacher({
-  teacherInfo,
-  userInfo,
-  courseInfo,
-  selectedLanguage,
-}) {
+export function Teacher({ teacherInfo, userInfo, courseInfo }) {
   return (
     <section className={styles.sectionTeacherCard}>
       <div className={styles.cardFlexWrap}>

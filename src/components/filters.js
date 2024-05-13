@@ -1,45 +1,60 @@
-import styles from "./teacherCard.module.css";
+import styles from "../styles/filter.module.css";
 import { useState } from "react";
-import { languageData } from "./languageData";
+import { countryFullName } from "./countryData";
 
 export function Filter({
-  selectedLanguage,
-  setSelectedLanguage,
+  selectedTarget,
   teachersData,
+  buttonName,
+  setSelectedTarget,
 }) {
-  const [opensLanguagesButton, setOpensLanguagesButton] = useState(false);
-  const [languageNameSubstr, setLanguageNameSubstr] = useState("");
+  const [openButton, setOpenButton] = useState(false);
+  const [substr, setSubstr] = useState("");
 
-  function selectLanguage(language) {
-    if (selectedLanguage.includes(language)) {
-      setSelectedLanguage(selectedLanguage.filter((el) => el !== language));
+  // const [openTeachersCountryButton, setOpenTeachersCountryButton] =
+  //   useState(false);
+
+  function selectTargetValue(i) {
+    const countryCode = Object.keys(countryFullName).find(
+      (k) => countryFullName[k] === i
+    );
+    if (countryCode) {
+      i = countryCode;
+    }
+
+    if (selectedTarget.includes(i)) {
+      setSelectedTarget(selectedTarget.filter((el) => el !== i));
     } else {
-      setSelectedLanguage([...selectedLanguage].concat([language]));
+      setSelectedTarget([...selectedTarget, ...[i]]);
     }
   }
 
   function languagesButton() {
-    setOpensLanguagesButton(() => !opensLanguagesButton);
+    setOpenButton(() => !openButton);
   }
 
-  function enterLanguageNameSubstr(event) {
-    setLanguageNameSubstr(() => event.target.value);
+  function enterSubstr(event) {
+    setSubstr(() => event.target.value);
   }
 
   return (
     <div>
-      <button onClick={languagesButton} className={styles.openLanguagesButton}>
-        language
+      <button className={styles.openLanguagesButton} onClick={languagesButton}>
+        {buttonName}
       </button>
 
-      {opensLanguagesButton && (
-        <div>
-          <input name="enterLanguage" onChange={enterLanguageNameSubstr} />
-          {[...languageData(teachersData)].map((language) => {
+      {openButton && (
+        <div className={styles.languagesWrap}>
+          <input onChange={(event) => enterSubstr(event)} />
+
+          {teachersData.map((item) => {
+            if (countryFullName.hasOwnProperty(item)) {
+              item = countryFullName[item];
+            }
             return (
-              language.includes(languageNameSubstr) && (
-                <div key={language} onClick={() => selectLanguage(language)}>
-                  {language}
+              item.includes(substr) && (
+                <div key={item} onClick={() => selectTargetValue(item)}>
+                  {item}
                 </div>
               )
             );
