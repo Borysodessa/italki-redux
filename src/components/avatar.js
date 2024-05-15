@@ -1,4 +1,4 @@
-import styles from "../styles/teacherCard.module.css";
+import styles from "../styles/avatar.module.css";
 
 import { Star } from "./images/svgImages";
 export function Avatar({ teacherInfo, userInfo }) {
@@ -6,16 +6,21 @@ export function Avatar({ teacherInfo, userInfo }) {
 
   return (
     <div className={styles.avatarWrap}>
-      <img
-        className={styles.avatar}
-        src={teacherInfo.video_pic_url}
-        width="76"
-        alt=""
-      ></img>
-      <img
-        src={"https://scdn.italki.com/orion/static/flags/" + flag + ".svg"}
-        alt="country_flag"
-      ></img>
+      <div className={styles.photoWrap}>
+        <div className={styles.frameWrap}>
+          <img
+            className={styles.avatarPhoto}
+            src={teacherInfo.video_pic_url}
+            width="76"
+            alt="avatarPhoto"
+          ></img>
+        </div>
+        <img
+          className={styles.flagFromAvatar}
+          src={"https://scdn.italki.com/orion/static/flags/" + flag + ".svg"}
+          alt="country_flag"
+        ></img>
+      </div>
       <div className={styles.ratingWrap}>
         <div className={styles.rating}>
           <Star />

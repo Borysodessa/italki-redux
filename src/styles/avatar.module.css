@@ -1,0 +1,67 @@
+.avatarWrap {
+    margin-right: 24px;
+}
+
+.photoWrap{
+    position:relative;}
+
+.frameWrap{
+    position:relative;
+width: 76px;
+height: 76px;
+overflow: hidden;
+border-radius: 50%;
+display: flex;
+justify-content: center;
+ align-content: stretch; 
+align-items: center;
+
+}
+
+.avatarPhoto {
+    width: 150%;
+    height: 128%;
+    background-size: contain;
+}
+
+.flagFromAvatar{
+    position:absolute;
+    right: 5px;
+    top: 54px;
+    display: inline-block;
+    background-size: contain;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 1px solid #E9E9EB;
+    border-width: 2px;
+    border-color: #ffffff;
+    width: 20px;
+    height: 20px;
+}
+
+.ratingWrap {
+    margin-top: 5px;
+}
+
+.rating {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.ratingNumber {
+    font-size: 14px;
+    color: #f9c003;
+    font-weight: 500;
+}
+
+.numberOfLessons {
+    display: flex;
+    gap: 5px;
+    font-size: 14px;
+    color: #515164;
+    font-weight: 500;
+}

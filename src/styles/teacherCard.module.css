@@ -15,42 +15,6 @@
     display: flex;
 }
 
-.avatarWrap{
-   margin-right: 24px;  
-}
-.avatar{
-    width: 91%;
-        height: 47%;
-        border-radius: 50%;
-border-radius: 50%;
-
-}
-.ratingWrap{
-    margin-top: 5px;
-    
-}
-
-.rating{
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-.ratingNumber{
-    font-size: 14px;
-    color: #f9c003;
-    font-weight: 500;
-}
-
-.numberOfLessons{
-    display: flex;
-    gap:5px;
-    font-size: 14px;
-    color:#515164; 
-    font-weight: 500;
-}
-
 .nickname{
     margin-top: 0;
     margin-bottom:0;
