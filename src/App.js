@@ -30,12 +30,14 @@ export function App() {
   return (
     <div>
       <Filter
+        criteria={"Country"}
         buttonName={"country"}
         teachersData={сountryData(json.data)}
         selectedTarget={selectedCountry}
         setSelectedTarget={setSelectedCountry}
       />
       <Filter
+        criteria={"Language"}
         buttonName={"language"}
         selectedTarget={selectedLanguage}
         setSelectedTarget={setSelectedLanguage}

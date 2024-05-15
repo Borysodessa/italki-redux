@@ -7,6 +7,7 @@ export function Filter({
   teachersData,
   buttonName,
   setSelectedTarget,
+  criteria,
 }) {
   const [openButton, setOpenButton] = useState(false);
   const [substr, setSubstr] = useState("");
@@ -33,12 +34,24 @@ export function Filter({
   function enterSubstr(event) {
     setSubstr(() => event.target.value);
   }
+  const selectedCriteria = selectedTarget
+    .map((target) =>
+      Object.keys(countryFullName).includes(target)
+        ? countryFullName[target]
+        : target
+    )
+    .join(", ");
 
   return (
     <div>
       <button className={styles.openLanguagesButton} onClick={languagesButton}>
         {buttonName}
       </button>
+
+      <div className={styles.criteriaWrap}>
+        <h3 className={styles.criteriaName}>Selected {criteria}</h3>
+        <span>{selectedCriteria}</span>
+      </div>
 
       {openButton && (
         <div className={styles.languagesWrap}>
