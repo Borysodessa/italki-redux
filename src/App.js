@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import json from "./components/data.json";
-import { Teacher } from "./components/teacherCard";
+import { Teacher } from "./components/teacher";
 import { Filter } from "./components/filters";
 import { languageData } from "./components/languageData";
 import { сountryData } from "./components/countryData";
@@ -43,6 +43,7 @@ export function App() {
       />
       {a.map((teacher) => (
         <Teacher
+          selectedCountry={selectedCountry}
           key={teacher.user_info.user_id}
           teacherInfo={teacher.teacher_info}
           userInfo={teacher.user_info}

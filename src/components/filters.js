@@ -11,9 +11,6 @@ export function Filter({
   const [openButton, setOpenButton] = useState(false);
   const [substr, setSubstr] = useState("");
 
-  // const [openTeachersCountryButton, setOpenTeachersCountryButton] =
-  //   useState(false);
-
   function selectTargetValue(i) {
     const countryCode = Object.keys(countryFullName).find(
       (k) => countryFullName[k] === i

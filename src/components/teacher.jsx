@@ -9,7 +9,7 @@ export function Teacher({ teacherInfo, userInfo, courseInfo }) {
   return (
     <section className={styles.sectionTeacherCard}>
       <div className={styles.cardFlexWrap}>
-        <Avatar teacherInfo={teacherInfo} />
+        <Avatar teacherInfo={teacherInfo} userInfo={userInfo} />
         <div>
           <TitleAndJob teacherInfo={teacherInfo} userInfo={userInfo} />
           <AllSpeakeLanguage teacherInfo={teacherInfo} />
