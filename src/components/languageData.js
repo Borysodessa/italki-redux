@@ -12,3 +12,7 @@ export function languageData(teachersDataBase) {
     ),
   ];
 }
+
+export function languageName(item) {
+  return item;
+}

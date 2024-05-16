@@ -21,3 +21,7 @@ export function сountryData(teachersDataBase) {
     ),
   ]; //.map((country) => countryFullName[country]);
 }
+
+export function countryName(item) {
+  return countryFullName[item];
+}

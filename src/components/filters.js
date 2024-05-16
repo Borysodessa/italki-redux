@@ -3,6 +3,7 @@ import { useState } from "react";
 import { countryFullName } from "./countryData";
 
 export function Filter({
+  targetName,
   selectedTarget,
   teachersData,
   buttonName,
@@ -13,13 +14,6 @@ export function Filter({
   const [substr, setSubstr] = useState("");
 
   function selectTargetValue(i) {
-    const countryCode = Object.keys(countryFullName).find(
-      (k) => countryFullName[k] === i
-    );
-    if (countryCode) {
-      i = countryCode;
-    }
-
     if (selectedTarget.includes(i)) {
       setSelectedTarget(selectedTarget.filter((el) => el !== i));
     } else {
@@ -34,6 +28,7 @@ export function Filter({
   function enterSubstr(event) {
     setSubstr(() => event.target.value);
   }
+
   const selectedCriteria = selectedTarget
     .map((target) =>
       Object.keys(countryFullName).includes(target)
@@ -42,6 +37,10 @@ export function Filter({
     )
     .join(", ");
 
+  const teachers = teachersData.filter((teacher) =>
+    targetName(teacher).toLowerCase().includes(substr.toLocaleLowerCase())
+  );
+  console.log(teachers);
   return (
     <div>
       <button className={styles.openLanguagesButton} onClick={languagesButton}>
@@ -57,16 +56,11 @@ export function Filter({
         <div className={styles.languagesWrap}>
           <input onChange={(event) => enterSubstr(event)} />
 
-          {teachersData.map((item) => {
-            if (countryFullName.hasOwnProperty(item)) {
-              item = countryFullName[item];
-            }
+          {teachers.map((item) => {
             return (
-              item.includes(substr) && (
-                <div key={item} onClick={() => selectTargetValue(item)}>
-                  {item}
-                </div>
-              )
+              <div key={item} onClick={() => selectTargetValue(item)}>
+                {targetName(item)}
+              </div>
             );
           })}
         </div>

@@ -1,6 +1,6 @@
 import styles from "../styles/avatar.module.css";
-
 import { Star } from "./images/svgImages";
+
 export function Avatar({ teacherInfo, userInfo }) {
   const flag = userInfo.living_country_id.toLowerCase();
 
