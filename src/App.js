@@ -4,9 +4,15 @@ import json from "./components/data.json";
 import { Teacher } from "./components/teacher";
 import { Filter } from "./components/filters";
 import { languageData } from "./components/languageData";
-import { сountryData } from "./components/countryData";
-import { countryName } from "./components/countryData";
-import { languageName } from "./components/languageData";
+import {
+  countryName,
+  criterionCountry,
+  сountryData,
+} from "./components/countryData";
+import { languageName, criterionLanguage } from "./components/languageData";
+import arrow from "./components/images/arrow.svg";
+
+console.log(arrow);
 
 export function App() {
   const [selectedLanguage, setSelectedLanguage] = useState([]);
@@ -32,6 +38,8 @@ export function App() {
   return (
     <div>
       <Filter
+        arrow={arrow}
+        selectedByCriterion={criterionCountry(selectedCountry)}
         targetName={countryName}
         criteria={"Country"}
         buttonName={"country"}
@@ -40,6 +48,8 @@ export function App() {
         setSelectedTarget={setSelectedCountry}
       />
       <Filter
+        arrow={arrow}
+        selectedByCriterion={criterionLanguage(selectedLanguage)}
         targetName={languageName}
         criteria={"Language"}
         buttonName={"language"}

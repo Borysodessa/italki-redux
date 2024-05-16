@@ -19,9 +19,13 @@ export function сountryData(teachersDataBase) {
     ...new Set(
       teachersDataBase.map((teacher) => teacher.user_info.living_country_id)
     ),
-  ]; //.map((country) => countryFullName[country]);
+  ];
 }
 
 export function countryName(item) {
   return countryFullName[item];
+}
+
+export function criterionCountry(selectedTarget) {
+  return selectedTarget.map((target) => countryFullName[target]).join(", ");
 }

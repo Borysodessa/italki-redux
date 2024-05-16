@@ -16,3 +16,7 @@ export function languageData(teachersDataBase) {
 export function languageName(item) {
   return item;
 }
+
+export function criterionLanguage(selectedTarget) {
+  return selectedTarget.map((target) => target).join(", ");
+}

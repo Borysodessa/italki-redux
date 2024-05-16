@@ -1,6 +1,5 @@
 import styles from "../styles/filter.module.css";
 import { useState } from "react";
-import { countryFullName } from "./countryData";
 
 export function Filter({
   targetName,
@@ -9,9 +8,12 @@ export function Filter({
   buttonName,
   setSelectedTarget,
   criteria,
+  selectedByCriterion,
+  arrow,
 }) {
   const [openButton, setOpenButton] = useState(false);
   const [substr, setSubstr] = useState("");
+  const [isRotated, setIsRotated] = useState(false);
 
   function selectTargetValue(i) {
     if (selectedTarget.includes(i)) {
@@ -21,7 +23,7 @@ export function Filter({
     }
   }
 
-  function languagesButton() {
+  function filtersMenuButton() {
     setOpenButton(() => !openButton);
   }
 
@@ -29,31 +31,36 @@ export function Filter({
     setSubstr(() => event.target.value);
   }
 
-  const selectedCriteria = selectedTarget
-    .map((target) =>
-      Object.keys(countryFullName).includes(target)
-        ? countryFullName[target]
-        : target
-    )
-    .join(", ");
-
   const teachers = teachersData.filter((teacher) =>
     targetName(teacher).toLowerCase().includes(substr.toLocaleLowerCase())
   );
-  console.log(teachers);
+
+  function arrowCollapse() {
+    setIsRotated(!isRotated);
+  }
   return (
     <div>
-      <button className={styles.openLanguagesButton} onClick={languagesButton}>
+      <button className={styles.filtersMenuButton} onClick={filtersMenuButton}>
         {buttonName}
+
+        <img
+          src={arrow}
+          style={{
+            transform: isRotated && "rotate(180deg)",
+          }}
+          onClick={() => arrowCollapse()}
+          alt=""
+        ></img>
       </button>
 
       <div className={styles.criteriaWrap}>
         <h3 className={styles.criteriaName}>Selected {criteria}</h3>
-        <span>{selectedCriteria}</span>
+
+        <span>{selectedByCriterion}</span>
       </div>
 
       {openButton && (
-        <div className={styles.languagesWrap}>
+        <div className={styles.filtersMenuWrap}>
           <input onChange={(event) => enterSubstr(event)} />
 
           {teachers.map((item) => {
