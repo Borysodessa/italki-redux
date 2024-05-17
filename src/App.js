@@ -3,16 +3,17 @@ import { useState } from "react";
 import json from "./components/data.json";
 import { Teacher } from "./components/teacher";
 import { Filter } from "./components/filters";
-import { languageData } from "./components/languageData";
+import { languageData, languageFlag } from "./components/languageData";
 import {
   countryName,
   criterionCountry,
   сountryData,
+  countryFlag,
 } from "./components/countryData";
 import { languageName, criterionLanguage } from "./components/languageData";
 import arrow from "./components/images/arrow.svg";
-
-console.log(arrow);
+import countryLogo from "./components/images/buttonLogos/countryLogo.svg";
+import languageLogo from "./components/images/buttonLogos/languageLogo.svg";
 
 export function App() {
   const [selectedLanguage, setSelectedLanguage] = useState([]);
@@ -38,16 +39,20 @@ export function App() {
   return (
     <div>
       <Filter
+        flag={countryFlag}
+        buttonLogo={languageLogo}
         arrow={arrow}
         selectedByCriterion={criterionCountry(selectedCountry)}
         targetName={countryName}
         criteria={"Country"}
-        buttonName={"country"}
+        buttonName={"Teacher is from"}
         teachersData={сountryData(json.data)}
         selectedTarget={selectedCountry}
         setSelectedTarget={setSelectedCountry}
       />
       <Filter
+        flag={languageFlag}
+        buttonLogo={countryLogo}
         arrow={arrow}
         selectedByCriterion={criterionLanguage(selectedLanguage)}
         targetName={languageName}

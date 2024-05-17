@@ -10,7 +10,11 @@ export function Filter({
   criteria,
   selectedByCriterion,
   arrow,
+  buttonLogo,
+  flag,
 }) {
+  console.log(flag);
+
   const [openButton, setOpenButton] = useState(false);
   const [substr, setSubstr] = useState("");
   const [isRotated, setIsRotated] = useState(false);
@@ -25,6 +29,7 @@ export function Filter({
 
   function filtersMenuButton() {
     setOpenButton(() => !openButton);
+    setIsRotated(!isRotated);
   }
 
   function enterSubstr(event) {
@@ -35,28 +40,30 @@ export function Filter({
     targetName(teacher).toLowerCase().includes(substr.toLocaleLowerCase())
   );
 
-  function arrowCollapse() {
-    setIsRotated(!isRotated);
-  }
   return (
     <div>
-      <button className={styles.filtersMenuButton} onClick={filtersMenuButton}>
-        {buttonName}
-
+      <div className={styles.menuButtonWrap} onClick={filtersMenuButton}>
+        <img
+          src={buttonLogo}
+          className={styles.buttonNameLogo}
+          alt="logo name button "
+        ></img>
         <img
           src={arrow}
           style={{
             transform: isRotated && "rotate(180deg)",
           }}
-          onClick={() => arrowCollapse()}
-          alt=""
+          className={styles.arrowInButton}
+          alt="arrow in button"
         ></img>
-      </button>
+        <button className={styles.filtersMenuButton}>{buttonName}</button>
+      </div>
 
       <div className={styles.criteriaWrap}>
         <h3 className={styles.criteriaName}>Selected {criteria}</h3>
-
-        <span>{selectedByCriterion}</span>
+        <span className={styles.selectedCountrySpan}>
+          {selectedByCriterion}
+        </span>
       </div>
 
       {openButton && (
@@ -65,8 +72,11 @@ export function Filter({
 
           {teachers.map((item) => {
             return (
-              <div key={item} onClick={() => selectTargetValue(item)}>
-                {targetName(item)}
+              <div className={styles.countryFlagWrap}>
+                <div key={item} onClick={() => selectTargetValue(item)}>
+                  {targetName(item)}
+                </div>
+                {flag(item)}
               </div>
             );
           })}

@@ -20,3 +20,7 @@ export function languageName(item) {
 export function criterionLanguage(selectedTarget) {
   return selectedTarget.map((target) => target).join(", ");
 }
+
+export function languageFlag(item) {
+  return null;
+}

@@ -29,3 +29,17 @@ export function countryName(item) {
 export function criterionCountry(selectedTarget) {
   return selectedTarget.map((target) => countryFullName[target]).join(", ");
 }
+
+export function countryFlag(item) {
+  return (
+    <img
+      src={
+        "https://scdn.italki.com/orion/static/flags/" +
+        item.toLocaleLowerCase() +
+        ".svg"
+      }
+      alt="flag"
+      width="20"
+    ></img>
+  );
+}
