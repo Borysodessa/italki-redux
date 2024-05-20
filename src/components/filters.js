@@ -11,13 +11,16 @@ export function Filter({
   selectedByCriterion,
   arrow,
   buttonLogo,
-  flag,
+  renderItem,
+  clearAll,
+  numberOfTeachers,
 }) {
-  console.log(flag);
-
   const [openButton, setOpenButton] = useState(false);
   const [substr, setSubstr] = useState("");
   const [isRotated, setIsRotated] = useState(false);
+
+  // const openClearAll = selectedTarget.length > 0 ? true : false;
+  // console.log(openClearAll);
 
   function selectTargetValue(i) {
     if (selectedTarget.includes(i)) {
@@ -46,7 +49,7 @@ export function Filter({
         <img
           src={buttonLogo}
           className={styles.buttonNameLogo}
-          alt="logo name button "
+          alt="logo name button"
         ></img>
         <img
           src={arrow}
@@ -66,20 +69,27 @@ export function Filter({
         </span>
       </div>
 
-      {openButton && (
-        <div className={styles.filtersMenuWrap}>
-          <input onChange={(event) => enterSubstr(event)} />
+      <span> numberOfTeachers {numberOfTeachers}</span>
 
-          {teachers.map((item) => {
-            return (
-              <div className={styles.countryFlagWrap}>
-                <div key={item} onClick={() => selectTargetValue(item)}>
-                  {targetName(item)}
+      {openButton && (
+        <div className={styles.overlay}>
+          <div className={styles.filtersMenuWrap}>
+            <input onChange={(event) => enterSubstr(event)} />
+
+            {teachers.map((item) => {
+              return (
+                <div className={styles.countryFlagWrap}>
+                  <div
+                    key={item}
+                    className={styles.renderItemWrap}
+                    onClick={() => selectTargetValue(item)}
+                  >
+                    {renderItem(item)}
+                  </div>
                 </div>
-                {flag(item)}
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       )}
     </div>

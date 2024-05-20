@@ -19,7 +19,7 @@ export function App() {
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState([]);
 
-  const filteredTeachers = json.data.filter((teacher) => {
+  const filteredTeachersByLanguage = json.data.filter((teacher) => {
     return selectedLanguage.every((el) => {
       return [
         ...teacher.teacher_info.teach_language,
@@ -30,20 +30,32 @@ export function App() {
     });
   });
 
-  const finalFilter = filteredTeachers.filter((teacher) => {
+  const finalFilter = filteredTeachersByLanguage.filter((teacher) => {
     return selectedCountry.length === 0
-      ? filteredTeachers
+      ? filteredTeachersByLanguage
       : selectedCountry.includes(teacher.user_info.living_country_id);
   });
+
+  function numberOfTeachersByLanguage(filteredTeachersByLanguage) {
+    if (selectedLanguage.length > 0) {
+      return filteredTeachersByLanguage.length;
+    }
+    return 0;
+  }
+
+  const numberOfTeachersByCountry = json.data.filter((teacher) => {
+    return selectedCountry.includes(teacher.user_info.living_country_id);
+  }).length;
 
   return (
     <div>
       <Filter
-        flag={countryFlag}
+        numberOfTeachers={numberOfTeachersByCountry}
+        renderItem={countryFlag}
+        targetName={countryName}
         buttonLogo={languageLogo}
         arrow={arrow}
         selectedByCriterion={criterionCountry(selectedCountry)}
-        targetName={countryName}
         criteria={"Country"}
         buttonName={"Teacher is from"}
         teachersData={сountryData(json.data)}
@@ -51,6 +63,9 @@ export function App() {
         setSelectedTarget={setSelectedCountry}
       />
       <Filter
+        numberOfTeachers={numberOfTeachersByLanguage(
+          filteredTeachersByLanguage
+        )}
         flag={languageFlag}
         buttonLogo={countryLogo}
         arrow={arrow}

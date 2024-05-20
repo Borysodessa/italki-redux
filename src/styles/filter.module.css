@@ -1,10 +1,20 @@
+/* .overlay{
+    display: block;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: #000000af;
+        z-index: 3;
+} */
 
 .menuButtonWrap{
   position:relative;  
   margin-top: 5px;
   width: fit-content;
- 
-}
+
+ }
 
 .filtersMenuButton 
  {
@@ -17,6 +27,10 @@
     border-radius: 20px;
 }
 
+.filtersMenuButton:hover{
+    background-color: #e5e5e5;
+} 
+
 .criteriaWrap{
     display: flex;
     justify-content: flex-start;
@@ -26,6 +40,7 @@
     max-width: 220px;
     border:solid 1px #333131;
     border-radius: 5px;
+    z-index:11
 }
 
 .criteriaName{
@@ -74,6 +89,10 @@
     justify-content: space-between;
 }
 
+.renderItemWrap{
+    min-width: 100%;
+}
+
 .targetNameFlag{
     width: 20px;
 }
@@ -89,4 +108,6 @@
      top:8px;
      right: 5px
 }
- 
+ /* <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap"
+ rel="stylesheet"
+ /> */

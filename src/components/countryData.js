@@ -1,3 +1,4 @@
+import styles from "../styles/countryData.module.css";
 export const countryFullName = {
   PK: "Pakistan",
   EG: "Egipt",
@@ -32,14 +33,17 @@ export function criterionCountry(selectedTarget) {
 
 export function countryFlag(item) {
   return (
-    <img
-      src={
-        "https://scdn.italki.com/orion/static/flags/" +
-        item.toLocaleLowerCase() +
-        ".svg"
-      }
-      alt="flag"
-      width="20"
-    ></img>
+    <div className={styles.languageItemWrap}>
+      {countryFullName[item]}
+      <img
+        src={
+          "https://scdn.italki.com/orion/static/flags/" +
+          item.toLocaleLowerCase() +
+          ".svg"
+        }
+        alt="flag"
+        width="20"
+      ></img>
+    </div>
   );
 }
