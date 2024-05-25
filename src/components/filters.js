@@ -1,26 +1,25 @@
 import styles from "../styles/filter.module.css";
+import arrow from "./images/arrow.svg";
 import { useState } from "react";
 
 export function Filter({
-  targetName,
+  targetName = (item) => item,
   selectedTarget,
   teachersData,
   buttonName,
   setSelectedTarget,
   criteria,
   selectedByCriterion,
-  arrow,
   buttonLogo,
-  renderItem,
-  clearAll,
+  renderItem = (item) => item,
   numberOfTeachers,
+  filterMenuStyles,
+  setIsRotated,
+  isRotated,
 }) {
   const [openButton, setOpenButton] = useState(false);
   const [substr, setSubstr] = useState("");
-  const [isRotated, setIsRotated] = useState(false);
-
-  // const openClearAll = selectedTarget.length > 0 ? true : false;
-  // console.log(openClearAll);
+  // const [isRotated, setIsRotated] = useState(false);
 
   function selectTargetValue(i) {
     if (selectedTarget.includes(i)) {
@@ -45,53 +44,55 @@ export function Filter({
 
   return (
     <div>
-      <div className={styles.menuButtonWrap} onClick={filtersMenuButton}>
-        <img
-          src={buttonLogo}
-          className={styles.buttonNameLogo}
-          alt="logo name button"
-        ></img>
-        <img
-          src={arrow}
-          style={{
-            transform: isRotated && "rotate(180deg)",
-          }}
-          className={styles.arrowInButton}
-          alt="arrow in button"
-        ></img>
-        <button className={styles.filtersMenuButton}>{buttonName}</button>
-      </div>
-
-      <div className={styles.criteriaWrap}>
-        <h3 className={styles.criteriaName}>Selected {criteria}</h3>
-        <span className={styles.selectedCountrySpan}>
-          {selectedByCriterion}
-        </span>
-      </div>
-
-      <span> numberOfTeachers {numberOfTeachers}</span>
-
-      {openButton && (
-        <div className={styles.overlay}>
-          <div className={styles.filtersMenuWrap}>
-            <input onChange={(event) => enterSubstr(event)} />
-
-            {teachers.map((item) => {
-              return (
-                <div className={styles.countryFlagWrap}>
-                  <div
-                    key={item}
-                    className={styles.renderItemWrap}
-                    onClick={() => selectTargetValue(item)}
-                  >
-                    {renderItem(item)}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+      <div className={styles.filtersWrap}>
+        <div className={styles.menuButtonWrap} onClick={filtersMenuButton}>
+          <img
+            src={buttonLogo}
+            className={styles.buttonNameLogo}
+            alt="logo name button"
+          ></img>
+          <img
+            src={arrow}
+            style={{
+              transform: isRotated && "rotate(180deg)",
+            }}
+            className={styles.arrowInButton}
+            alt="arrow in button"
+          ></img>
+          <button className={styles.filtersMenuButton}>{buttonName}</button>
         </div>
-      )}
+
+        <div className={styles.criteriaWrap}>
+          <h3 className={styles.criteriaName}>Selected {criteria}</h3>
+          <span className={styles.selectedCountrySpan}>
+            {selectedByCriterion}
+          </span>
+
+          <span> number of teachers {numberOfTeachers}</span>
+        </div>
+
+        {openButton && (
+          <div>
+            <div className={styles.filtersMenuWrap} style={filterMenuStyles}>
+              <input onChange={(event) => enterSubstr(event)} />
+
+              {teachers.map((item) => {
+                return (
+                  <div className={styles.renderWrap}>
+                    <div
+                      key={item}
+                      className={styles.renderItemWrap}
+                      onClick={() => selectTargetValue(item)}
+                    >
+                      {renderItem(item)}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

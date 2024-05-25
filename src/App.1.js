@@ -1,4 +1,3 @@
-import "./App.css";
 import styles from "./styles/app.module.css";
 import { useState } from "react";
 import json from "./components/data.json";
@@ -12,7 +11,6 @@ import {
   countryFlag,
 } from "./components/countryData";
 import { criterionLanguage } from "./components/languageData";
-
 import countryLogo from "./components/images/buttonLogos/countryLogo.svg";
 import languageLogo from "./components/images/buttonLogos/languageLogo.svg";
 import { ClearAll } from "./components/clearAll";
@@ -22,12 +20,6 @@ export function App() {
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState([]);
   const [order, setOrder] = useState(true);
-  const [isRotated, setIsRotated] = useState(false);
-
-  function clear() {
-    setSelectedCountry([]);
-    setSelectedLanguage([]);
-  }
 
   const filteredTeachersByLanguage = json.data.filter((teacher) => {
     return selectedLanguage.every((el) => {
@@ -46,16 +38,16 @@ export function App() {
       : selectedCountry.includes(teacher.user_info.living_country_id);
   });
 
-  // function sortByLessons(finalFilter) {
-  //   return order
-  //     ? finalFilter.sort(
-  //         (a, b) => b.teacher_info.session_count - a.teacher_info.session_count
-  //       )
-  //     : finalFilter.sort(
-  //         (a, b) => a.teacher_info.session_count - b.teacher_info.session_count
-  //       );
-  // }
-  //console.log("sss", sortByLessons(finalFilter));
+  function sortByLessons(finalFilter) {
+    return order
+      ? finalFilter.sort(
+          (a, b) => b.teacher_info.session_count - a.teacher_info.session_count
+        )
+      : finalFilter.sort(
+          (a, b) => a.teacher_info.session_count - b.teacher_info.session_count
+        );
+  }
+  console.log("sss", sortByLessons(finalFilter));
 
   function numberOfTeachersByLanguage(filteredTeachersByLanguage) {
     if (selectedLanguage.length > 0) {
@@ -86,8 +78,6 @@ export function App() {
           teachersData={сountryData(json.data)}
           selectedTarget={selectedCountry}
           setSelectedTarget={setSelectedCountry}
-          isRotated={isRotated}
-          setIsRotated={setIsRotated}
         />
         <Filter
           filterMenuStyles={languageStyles}
@@ -101,18 +91,14 @@ export function App() {
           selectedTarget={selectedLanguage}
           setSelectedTarget={setSelectedLanguage}
           teachersData={languageData(json.data)}
-          isRotated={isRotated}
-          setIsRotated={setIsRotated}
         />
       </div>
-      <Sort
-        order={order}
-        setOrder={setOrder}
-        isRotated={isRotated}
-        setIsRotated={setIsRotated}
-      />
+      <Sort setOrder={setOrder} />
 
-      <ClearAll clear={clear} />
+      <ClearAll
+        setSelectedCountry={setSelectedCountry}
+        setSelectedLanguage={setSelectedLanguage}
+      />
       {finalFilter.map((teacher) => (
         <Teacher
           selectedCountry={selectedCountry}
