@@ -1,0 +1,20 @@
+.sortArrowWrap{
+    position:relative;
+    width: fit-content;
+}
+
+.sortButton{
+    margin-bottom: 15px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #f5f6f9;
+    border-width: 1px;
+    border-radius: 20px;
+}
+
+.changeColor{
+    background-color: #ecf45b;
+}
+

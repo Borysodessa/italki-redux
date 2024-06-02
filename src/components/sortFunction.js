@@ -1,5 +1,5 @@
-// export function sortByLessons(finalFilter) {
-//   return order
+// export function sortByLessons(finalFilter, orderByLessons) {
+//   return orderByLessons
 //     ? finalFilter.sort(
 //         (a, b) => b.teacher_info.session_count - a.teacher_info.session_count
 //       )

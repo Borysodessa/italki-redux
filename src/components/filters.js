@@ -1,5 +1,5 @@
 import styles from "../styles/filter.module.css";
-import arrow from "./images/arrow.svg";
+import { Arrow } from "./arrow";
 import { useState } from "react";
 
 export function Filter({
@@ -14,12 +14,11 @@ export function Filter({
   renderItem = (item) => item,
   numberOfTeachers,
   filterMenuStyles,
-  setIsRotated,
-  isRotated,
+  change,
+  setChange,
 }) {
   const [openButton, setOpenButton] = useState(false);
   const [substr, setSubstr] = useState("");
-  // const [isRotated, setIsRotated] = useState(false);
 
   function selectTargetValue(i) {
     if (selectedTarget.includes(i)) {
@@ -31,7 +30,7 @@ export function Filter({
 
   function filtersMenuButton() {
     setOpenButton(() => !openButton);
-    setIsRotated(!isRotated);
+    setChange({ ...change, selectButton: buttonName, rotate: !change.rotate });
   }
 
   function enterSubstr(event) {
@@ -51,14 +50,13 @@ export function Filter({
             className={styles.buttonNameLogo}
             alt="logo name button"
           ></img>
-          <img
-            src={arrow}
-            style={{
-              transform: isRotated && "rotate(180deg)",
-            }}
-            className={styles.arrowInButton}
-            alt="arrow in button"
-          ></img>
+
+          <Arrow
+            buttonName={buttonName}
+            arrowRotate={change.rotate}
+            selectButton={change.selectButton}
+          />
+
           <button className={styles.filtersMenuButton}>{buttonName}</button>
         </div>
 

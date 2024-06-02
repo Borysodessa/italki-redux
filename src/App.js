@@ -21,8 +21,10 @@ import { Sort } from "./components/sort";
 export function App() {
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState([]);
-  const [order, setOrder] = useState(true);
-  const [isRotated, setIsRotated] = useState(false);
+  const [change, setChange] = useState({
+    selectButton: "",
+    rotate: false,
+  });
 
   function clear() {
     setSelectedCountry([]);
@@ -45,9 +47,10 @@ export function App() {
       ? filteredTeachersByLanguage
       : selectedCountry.includes(teacher.user_info.living_country_id);
   });
-
+  //console.log(finalFilter);
+  //sortByItems(finalFilter);
   // function sortByLessons(finalFilter) {
-  //   return order
+  //   return orderByLessons
   //     ? finalFilter.sort(
   //         (a, b) => b.teacher_info.session_count - a.teacher_info.session_count
   //       )
@@ -55,7 +58,15 @@ export function App() {
   //         (a, b) => a.teacher_info.session_count - b.teacher_info.session_count
   //       );
   // }
-  //console.log("sss", sortByLessons(finalFilter));
+  // function sortByStudent(finalFilter) {
+  //   return setOrderBystudents
+  //     ? finalFilter.sort(
+  //         (a, b) => b.teacher_info.session_count - a.teacher_info.student_count
+  //       )
+  //     : finalFilter.sort(
+  //         (a, b) => a.teacher_info.session_count - b.teacher_info.student_count
+  //       );
+  // }
 
   function numberOfTeachersByLanguage(filteredTeachersByLanguage) {
     if (selectedLanguage.length > 0) {
@@ -75,6 +86,8 @@ export function App() {
     <div>
       <div className={styles.filtersWrap}>
         <Filter
+          change={change}
+          setChange={setChange}
           filterMenuStyles={countryStyles}
           numberOfTeachers={numberOfTeachersByCountry}
           renderItem={countryFlag}
@@ -86,10 +99,10 @@ export function App() {
           teachersData={сountryData(json.data)}
           selectedTarget={selectedCountry}
           setSelectedTarget={setSelectedCountry}
-          isRotated={isRotated}
-          setIsRotated={setIsRotated}
         />
         <Filter
+          change={change}
+          setChange={setChange}
           filterMenuStyles={languageStyles}
           numberOfTeachers={numberOfTeachersByLanguage(
             filteredTeachersByLanguage
@@ -101,18 +114,12 @@ export function App() {
           selectedTarget={selectedLanguage}
           setSelectedTarget={setSelectedLanguage}
           teachersData={languageData(json.data)}
-          isRotated={isRotated}
-          setIsRotated={setIsRotated}
         />
-      </div>
-      <Sort
-        order={order}
-        setOrder={setOrder}
-        isRotated={isRotated}
-        setIsRotated={setIsRotated}
-      />
 
+        <Sort change={change} setChange={setChange} />
+      </div>
       <ClearAll clear={clear} />
+
       {finalFilter.map((teacher) => (
         <Teacher
           selectedCountry={selectedCountry}

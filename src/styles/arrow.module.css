@@ -1,0 +1,10 @@
+.rotate{
+    transform: rotate(180deg);
+}
+
+.arrowInSortButton {
+    display: block;
+    position: absolute;
+    top: 8px;
+    right: 5px;
+}

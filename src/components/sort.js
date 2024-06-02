@@ -1,26 +1,47 @@
-import { useState } from "react";
 import styles from "../styles/sort.module.css";
-import arrow from "./images/arrow.svg";
+import { Arrow } from "./arrow";
+import classNames from "classnames";
 
-export function Sort({ order, setOrder, isRotated, setIsRotated }) {
-  function sort() {
-    setOrder(!order);
-    setIsRotated(!isRotated);
+const buttonNames = [
+  "orderByLessons",
+  "orderByStudents",
+  "orderByRatio",
+  "orderByPrice",
+];
+
+export function Sort({ change, setChange }) {
+  function changeColor(buttonName) {
+    if (change.selectButton !== buttonName) {
+      setChange({ ...change, selectButton: buttonName, rotate: false });
+    } else {
+      setChange({ ...change, rotate: true });
+    }
   }
 
   return (
-    <div>
-      <img
-        src={arrow}
-        style={{
-          transform: isRotated && "rotate(180deg)",
-        }}
-        className={styles.arrowInButton}
-        alt="arrow in button"
-      ></img>
-      <button type="button" onClick={sort}>
-        sort
-      </button>
+    <div className={styles.sortButtonWrap}>
+      {buttonNames.map((buttonName) => (
+        <div
+          key={buttonName}
+          className={styles.sortArrowWrap}
+          onClick={() => changeColor(buttonName)}
+        >
+          <Arrow
+            arrowStyles={styles.arrowInSortButton}
+            arrowRotate={change.rotate}
+            buttonName={buttonName}
+            selectButton={change.selectButton}
+          />
+          <button
+            className={classNames({
+              [styles.changeColor]: change.selectButton === buttonName,
+              [styles.sortButton]: true,
+            })}
+          >
+            {buttonName}
+          </button>
+        </div>
+      ))}
     </div>
   );
 }
