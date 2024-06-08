@@ -2,19 +2,18 @@ import styles from "../styles/sort.module.css";
 import { Arrow } from "./arrow";
 import classNames from "classnames";
 
-const buttonNames = [
+export const buttonNames = [
   "orderByLessons",
   "orderByStudents",
   "orderByRatio",
   "orderByPrice",
 ];
-
 export function Sort({ change, setChange }) {
-  function changeColor(buttonName) {
+  function changeParam(buttonName) {
     if (change.selectButton !== buttonName) {
       setChange({ ...change, selectButton: buttonName, rotate: false });
     } else {
-      setChange({ ...change, rotate: true });
+      setChange({ ...change, rotate: !change.rotate });
     }
   }
 
@@ -24,13 +23,11 @@ export function Sort({ change, setChange }) {
         <div
           key={buttonName}
           className={styles.sortArrowWrap}
-          onClick={() => changeColor(buttonName)}
+          onClick={() => changeParam(buttonName)}
         >
           <Arrow
             arrowStyles={styles.arrowInSortButton}
-            arrowRotate={change.rotate}
-            buttonName={buttonName}
-            selectButton={change.selectButton}
+            isRotated={change.selectButton === buttonName && change.rotate}
           />
           <button
             className={classNames({

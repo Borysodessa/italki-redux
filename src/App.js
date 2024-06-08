@@ -18,13 +18,18 @@ import languageLogo from "./components/images/buttonLogos/languageLogo.svg";
 import { ClearAll } from "./components/clearAll";
 import { Sort } from "./components/sort";
 
+import { sorting } from "./components/sortFunction";
+
 export function App() {
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState([]);
   const [change, setChange] = useState({
-    selectButton: "",
+    selectButton: "orderByLessons",
     rotate: false,
   });
+
+  const changeRotate = change.rotate;
+  const selectedButton = change.selectButton;
 
   function clear() {
     setSelectedCountry([]);
@@ -47,26 +52,8 @@ export function App() {
       ? filteredTeachersByLanguage
       : selectedCountry.includes(teacher.user_info.living_country_id);
   });
-  //console.log(finalFilter);
-  //sortByItems(finalFilter);
-  // function sortByLessons(finalFilter) {
-  //   return orderByLessons
-  //     ? finalFilter.sort(
-  //         (a, b) => b.teacher_info.session_count - a.teacher_info.session_count
-  //       )
-  //     : finalFilter.sort(
-  //         (a, b) => a.teacher_info.session_count - b.teacher_info.session_count
-  //       );
-  // }
-  // function sortByStudent(finalFilter) {
-  //   return setOrderBystudents
-  //     ? finalFilter.sort(
-  //         (a, b) => b.teacher_info.session_count - a.teacher_info.student_count
-  //       )
-  //     : finalFilter.sort(
-  //         (a, b) => a.teacher_info.session_count - b.teacher_info.student_count
-  //       );
-  // }
+
+  const finalSorting = sorting(finalFilter, selectedButton, changeRotate);
 
   function numberOfTeachersByLanguage(filteredTeachersByLanguage) {
     if (selectedLanguage.length > 0) {
@@ -120,7 +107,7 @@ export function App() {
       </div>
       <ClearAll clear={clear} />
 
-      {finalFilter.map((teacher) => (
+      {finalSorting.map((teacher) => (
         <Teacher
           selectedCountry={selectedCountry}
           key={teacher.user_info.user_id}

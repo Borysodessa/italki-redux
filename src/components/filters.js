@@ -14,11 +14,10 @@ export function Filter({
   renderItem = (item) => item,
   numberOfTeachers,
   filterMenuStyles,
-  change,
-  setChange,
 }) {
   const [openButton, setOpenButton] = useState(false);
   const [substr, setSubstr] = useState("");
+  const [isRotated, setIsRotated] = useState(false);
 
   function selectTargetValue(i) {
     if (selectedTarget.includes(i)) {
@@ -30,7 +29,7 @@ export function Filter({
 
   function filtersMenuButton() {
     setOpenButton(() => !openButton);
-    setChange({ ...change, selectButton: buttonName, rotate: !change.rotate });
+    setIsRotated(!isRotated);
   }
 
   function enterSubstr(event) {
@@ -51,11 +50,7 @@ export function Filter({
             alt="logo name button"
           ></img>
 
-          <Arrow
-            buttonName={buttonName}
-            arrowRotate={change.rotate}
-            selectButton={change.selectButton}
-          />
+          <Arrow isRotated={isRotated} />
 
           <button className={styles.filtersMenuButton}>{buttonName}</button>
         </div>
