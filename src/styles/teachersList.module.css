@@ -1,0 +1,5 @@
+.filtersWrap {
+    display: flex;
+    margin-left: 40px;
+    gap: 60px;
+}

@@ -8,6 +8,7 @@ export const buttonNames = [
   "orderByRatio",
   "orderByPrice",
 ];
+
 export function Sort({ change, setChange }) {
   function changeParam(buttonName) {
     if (change.selectButton !== buttonName) {

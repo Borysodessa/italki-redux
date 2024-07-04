@@ -1,9 +1,20 @@
-.filtersWrap{
-   display:flex ;
-   margin-left:40px;
-   gap:60px;
+/* .mainTableContainer {
+   position: absolute;
+   right: 60px;
+   top: 300px;
+} */
+
+/* .pricePerTimeWrap{
+   display: flex;
+} */
+
+.appMainWrap{
+   display: flex;
+   justify-content: space-around;
 }
  /* .overlay{
+
+
     display: block;
         position: fixed;
         top: 0;

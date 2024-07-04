@@ -1,0 +1,85 @@
+.anyPriceFilterWrap{
+    position: relative;
+}
+
+.teacherName{
+text-align: center;
+}
+
+.tableContainer{
+  
+    margin-top: 20px;
+    margin-left: auto;
+    width: fit-content;
+    
+}
+
+.tableLanguage{
+    margin-left: auto;
+    text-align: center;
+}
+
+.tableTitle{
+    text-align: center;
+    max-width:500px
+}
+
+.tableWrap{
+    display: flex;
+    width:fit-content;
+    border: 1px solid #000000;
+}
+
+.titleWrap{
+    display: flex;
+    flex-direction: column;
+}
+
+.columnWrap{
+    display:flex;
+    flex-direction: column;
+    border-left: 1px solid #000000;
+    text-align: center;
+}
+
+.nameCell{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 160px;
+    height: 55px;
+    text-align: center;
+    font-size: 17px;
+} 
+
+.nameCell:not(:last-child) {
+    border-bottom: 1px solid #000000;
+}
+
+.oneHouerCell{
+    display: flex;
+    flex-direction: column;
+    width: 110px;
+    height: 55px;
+    text-align: center;   
+}
+
+.oneHouerCell:not(:last-child){
+    border-bottom: 1px solid #000000;
+}
+
+.cell{
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+    height: 55px;
+    border-left: none;
+}
+
+  .cell:nth-child(1){
+    display: flex;
+}
+
+.cell:not(:last-child){
+    border-bottom: 1px solid #000000;
+}
