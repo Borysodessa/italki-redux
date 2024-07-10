@@ -1,14 +1,9 @@
 import styles from "../styles/pricePerTime.module.css";
+import { priceListItem } from "./priceListItem";
+import classNames from "classnames";
+import { actualPrice } from "./funcPrices";
 
-const quantityTime = {
-  2: 30,
-  3: 45,
-  4: 60,
-  5: 75,
-  6: 90,
-};
-
-export function PricePerTime({ oneCourse }) {
+export function PricePerTime({ oneCourse, packageMax, packageMin }) {
   const courses = oneCourse.price_list;
 
   return (
@@ -27,29 +22,43 @@ export function PricePerTime({ oneCourse }) {
           </div>
         </div>
 
-        {courses.map((prices) => {
-          const pricePerOneHour = (
-            (prices.session_price / 100 / quantityTime[prices.session_length]) *
-            60
-          ).toFixed(2);
-          const oneHourFromPackage =
-            prices.package_price / 100 / prices.package_length;
-
+        {courses.map((price) => {
+          console.log("pppp", actualPrice(price, packageMin, packageMax));
           return (
-            <div key={prices.course_price_id} className={styles.columnWrap}>
+            <div key={price.course_price_id} className={styles.columnWrap}>
               <div className={styles.cell}>
-                {quantityTime[prices.session_length]}
+                {priceListItem(price).sessionLength}
                 <span> min</span>
               </div>
               <div className={styles.oneHouerCell}>
-                {prices.session_price / 100}
-                <span>{pricePerOneHour}</span>
+                {priceListItem(price).sessionPrice}
+                <span
+                  className={classNames({
+                    [styles.actualColor]: actualPrice(
+                      price,
+                      packageMin,
+                      packageMax
+                    ),
+                  })}
+                >
+                  {priceListItem(price).pricePerOneHour}
+                </span>
               </div>
               <div className={styles.cell}>
-                <div>{oneHourFromPackage.toFixed(2)}</div>
+                <div
+                  className={classNames({
+                    [styles.actualColor]: actualPrice(
+                      price,
+                      packageMin,
+                      packageMax
+                    ),
+                  })}
+                >
+                  {priceListItem(price).oneHourFromPackage}
+                </div>
                 <div>
-                  {prices.package_price / 100}
-                  <span>$ / {prices.package_length}L</span>
+                  {priceListItem(price).packagePrice}
+                  <span>$ / {price.package_length}L</span>
                 </div>
               </div>
             </div>

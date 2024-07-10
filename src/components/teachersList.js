@@ -19,19 +19,25 @@ import { Sort } from "./sort";
 import { sorting } from "./sortFunction";
 import { PriceFilter } from "./priceFilter";
 import { filterByPrice } from "./filterByPrice";
+import { filteringTeachersByPricesPerHour } from "./funcPrices.js";
 
-export function TeacherList({ jsonData, setSelectedTeacher }) {
+export function TeacherList({
+  jsonData,
+  setSelectedTeacher,
+  packageMax,
+  setPackageMax,
+  packageMin,
+  setPackageMin,
+}) {
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState([]);
+
   const [change, setChange] = useState({
     selectButton: "orderByLessons",
     rotate: false,
   });
-
   const [min, setMin] = useState("0");
   const [max, setMax] = useState("20");
-  const [packageMin, setPackageMin] = useState("0");
-  const [packageMax, setPackageMax] = useState("20");
 
   const changeRotate = change.rotate;
   const selectedButton = change.selectButton;
@@ -43,16 +49,18 @@ export function TeacherList({ jsonData, setSelectedTeacher }) {
     setMax("");
   }
 
-  const filteredTeachersByLanguage = jsonData.filter((teacher) => {
-    return selectedLanguage.every((el) => {
-      return [
-        ...teacher.teacher_info.teach_language,
-        ...teacher.teacher_info.also_speak,
-      ]
-        .map((item) => item["language"])
-        .includes(el);
-    });
-  });
+  const filteredTeachersByLanguage = jsonData.filter(
+    (teacher, packageMax, packageMin) => {
+      return selectedLanguage.every((el) => {
+        return [
+          ...teacher.teacher_info.teach_language,
+          ...teacher.teacher_info.also_speak,
+        ]
+          .map((item) => item["language"])
+          .includes(el);
+      });
+    }
+  );
 
   const anyFilter = filteredTeachersByLanguage.filter((teacher) => {
     return selectedCountry.length === 0
@@ -64,12 +72,11 @@ export function TeacherList({ jsonData, setSelectedTeacher }) {
 
   const anyPriceFilter = filterByPrice(min, max, anySorting);
 
-  //   funcFilterByPackagePrice(packageMin, packageMax, anyPriceFilter);
-  //   console.log();
-  //   console.log(
-  //     "ffffff",
-  //     funcFilterByPackagePrice(packageMin, packageMax, anyPriceFilter)
-  //   );
+  const teachers = filteringTeachersByPricesPerHour(
+    packageMin,
+    packageMax,
+    anyPriceFilter
+  );
 
   function numberOfTeachersByLanguage(filteredTeachersByLanguage) {
     if (selectedLanguage.length > 0) {
@@ -135,13 +142,12 @@ export function TeacherList({ jsonData, setSelectedTeacher }) {
 
       <div className={styles.flexWrap}>
         <div className={styles.teacherContainer}>
-          {anyPriceFilter.map((teacher) => (
+          {teachers.map((teacher) => (
             <div
               key={teacher.user_info.user_id}
               className={styles.anyPriceFilterWrap}
             >
               <Teacher
-                anyPriceFilter={anyPriceFilter}
                 teacher={teacher}
                 selectedCountry={selectedCountry}
                 key={teacher.user_info.user_id}
