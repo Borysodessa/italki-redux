@@ -7,8 +7,8 @@ import { TeacherContent } from "./components/teacherContent";
 
 export function App() {
   const [selectedTeacher, setSelectedTeacher] = useState(null);
-  const [packageMin, setPackageMin] = useState("0");
-  const [packageMax, setPackageMax] = useState("20");
+  const [packageMin, setPackageMin] = useState(0);
+  const [packageMax, setPackageMax] = useState(20);
 
   return (
     <div className={styles.appMainWrap}>

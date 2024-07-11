@@ -1,7 +1,6 @@
 import styles from "../styles/pricePerTime.module.css";
 import { priceListItem } from "./priceListItem";
 import classNames from "classnames";
-import { actualPrice } from "./funcPrices";
 
 export function PricePerTime({ oneCourse, packageMax, packageMin }) {
   const courses = oneCourse.price_list;
@@ -23,41 +22,47 @@ export function PricePerTime({ oneCourse, packageMax, packageMin }) {
         </div>
 
         {courses.map((price) => {
-          console.log("pppp", actualPrice(price, packageMin, packageMax));
+          const {
+            sessionLength,
+            sessionPrice,
+            pricePerOneHour,
+            oneHourFromPackage,
+            packagePrice,
+          } = priceListItem(price);
+
+          const isActuactualPrice =
+            pricePerOneHour >= packageMin && pricePerOneHour <= packageMax;
+
+          const isActuactualPacagePrice =
+            oneHourFromPackage >= packageMin &&
+            oneHourFromPackage <= packageMax;
+
           return (
             <div key={price.course_price_id} className={styles.columnWrap}>
               <div className={styles.cell}>
-                {priceListItem(price).sessionLength}
+                {sessionLength}
                 <span> min</span>
               </div>
               <div className={styles.oneHouerCell}>
-                {priceListItem(price).sessionPrice}
+                {sessionPrice}
                 <span
                   className={classNames({
-                    [styles.actualColor]: actualPrice(
-                      price,
-                      packageMin,
-                      packageMax
-                    ),
+                    [styles.actualColor]: isActuactualPrice,
                   })}
                 >
-                  {priceListItem(price).pricePerOneHour}
+                  {pricePerOneHour}
                 </span>
               </div>
               <div className={styles.cell}>
                 <div
                   className={classNames({
-                    [styles.actualColor]: actualPrice(
-                      price,
-                      packageMin,
-                      packageMax
-                    ),
+                    [styles.actualColor]: isActuactualPacagePrice,
                   })}
                 >
-                  {priceListItem(price).oneHourFromPackage}
+                  {oneHourFromPackage}
                 </div>
                 <div>
-                  {priceListItem(price).packagePrice}
+                  {packagePrice}
                   <span>$ / {price.package_length}L</span>
                 </div>
               </div>

@@ -22,10 +22,3 @@ export function filteringTeachersByPricesPerHour(
     );
   });
 }
-
-export function actualPrice(price, packageMin, packageMax) {
-  return +priceListItem(price).oneHourFromPackage > packageMin &&
-    +priceListItem(price).oneHourFromPackage < packageMax
-    ? true
-    : false;
-}
