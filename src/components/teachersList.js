@@ -11,14 +11,13 @@ import {
   countryFlag,
 } from "./countryData";
 import { criterionLanguage } from "./languageData";
-import { FilterByPackagePrice } from "./filterByPackagePrice.js";
+import { FilterByPrice } from "./filterByPrice.js";
 import countryLogo from "./images/buttonLogos/countryLogo.svg";
 import languageLogo from "./images/buttonLogos/languageLogo.svg";
 import { ClearAll } from "./clearAll";
 import { Sort } from "./sort";
-import { sorting } from "./sortFunction";
-import { PriceFilter } from "./priceFilter";
-import { filterByPrice } from "./filterByPrice";
+import { sorting } from "./sorting";
+import { filteredTeachersByLanguage } from "./filteredTeachersByLanguage.js";
 import { filteringTeachersByPricesPerHour } from "./funcPrices.js";
 
 export function TeacherList({
@@ -36,8 +35,6 @@ export function TeacherList({
     selectButton: "orderByLessons",
     rotate: false,
   });
-  const [min, setMin] = useState("0");
-  const [max, setMax] = useState("20");
 
   const changeRotate = change.rotate;
   const selectedButton = change.selectButton;
@@ -45,24 +42,40 @@ export function TeacherList({
   function clear() {
     setSelectedCountry([]);
     setSelectedLanguage([]);
-    setMin("");
-    setMax("");
   }
 
-  const filteredTeachersByLanguage = jsonData.filter(
-    (teacher, packageMax, packageMin) => {
-      return selectedLanguage.every((el) => {
-        return [
-          ...teacher.teacher_info.teach_language,
-          ...teacher.teacher_info.also_speak,
-        ]
-          .map((item) => item["language"])
-          .includes(el);
-      });
-    }
-  );
+  // const filteredTeachersByLanguage = jsonData.filter((teacher) => {
+  //   return selectedLanguage.every((el) => {
+  //     return [
+  //       ...teacher.teacher_info.teach_language,
+  //       ...teacher.teacher_info.also_speak,
+  //     ]
+  //       .map((item) => item["language"])
+  //       .includes(el);
+  //   });
+  // });
 
-  const anyFilter = filteredTeachersByLanguage.filter((teacher) => {
+  // function filteredTeachersByLanguage(jsonData, selectedLanguage) {
+  //   if (selectedLanguage.length === 0) {
+  //     return jsonData;
+  //   }
+
+  //   return jsonData.filter((teacher) => {
+  //     return selectedLanguage.every((el) => {
+  //       return [
+  //         ...teacher.teacher_info.teach_language,
+  //         ...teacher.teacher_info.also_speak,
+  //       ]
+  //         .map((item) => item["language"])
+  //         .includes(el);
+  //     });
+  //   });
+  // }
+
+  const anyFilter = filteredTeachersByLanguage(
+    jsonData,
+    selectedLanguage
+  ).filter((teacher) => {
     return selectedCountry.length === 0
       ? filteredTeachersByLanguage
       : selectedCountry.includes(teacher.user_info.living_country_id);
@@ -70,12 +83,10 @@ export function TeacherList({
 
   const anySorting = sorting(anyFilter, selectedButton, changeRotate);
 
-  const anyPriceFilter = filterByPrice(min, max, anySorting);
-
   const teachers = filteringTeachersByPricesPerHour(
     packageMin,
     packageMax,
-    anyPriceFilter
+    anySorting
   );
 
   function numberOfTeachersByLanguage(filteredTeachersByLanguage) {
@@ -127,19 +138,16 @@ export function TeacherList({
         />
 
         <Sort change={change} setChange={setChange} />
+
+        <ClearAll clear={clear} />
+
+        <FilterByPrice
+          setPackageMin={setPackageMin}
+          setPackageMax={setPackageMax}
+          packageMin={packageMin}
+          packageMax={packageMax}
+        />
       </div>
-
-      <ClearAll clear={clear} />
-
-      <PriceFilter min={min} setMin={setMin} max={max} setMax={setMax} />
-
-      <FilterByPackagePrice
-        setPackageMin={setPackageMin}
-        setPackageMax={setPackageMax}
-        packageMin={packageMin}
-        packageMax={packageMax}
-      />
-
       <div className={styles.flexWrap}>
         <div className={styles.teacherContainer}>
           {teachers.map((teacher) => (

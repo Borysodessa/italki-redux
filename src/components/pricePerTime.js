@@ -37,13 +37,20 @@ export function PricePerTime({ oneCourse, packageMax, packageMin }) {
             oneHourFromPackage >= packageMin &&
             oneHourFromPackage <= packageMax;
 
+          const isActuactualSessoinPrice =
+            sessionPrice >= packageMin && sessionPrice <= packageMax;
           return (
             <div key={price.course_price_id} className={styles.columnWrap}>
               <div className={styles.cell}>
                 {sessionLength}
                 <span> min</span>
               </div>
-              <div className={styles.oneHouerCell}>
+              <div
+                className={classNames({
+                  [styles.actualColor]: isActuactualSessoinPrice,
+                  [styles.oneHouerCell]: true,
+                })}
+              >
                 {sessionPrice}
                 <span
                   className={classNames({

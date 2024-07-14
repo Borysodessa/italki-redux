@@ -4,6 +4,7 @@ import { useState } from "react";
 import json from "./components/data.json";
 import { TeacherList } from "./components/teachersList";
 import { TeacherContent } from "./components/teacherContent";
+//import { AllFilters } from "./components/allFilters";
 
 export function App() {
   const [selectedTeacher, setSelectedTeacher] = useState(null);
