@@ -9,6 +9,7 @@ import { Teacher } from "./teacher";
 import { Filter } from "./filters";
 import { languageData } from "./languageData";
 import {
+  countryFullName,
   countryName,
   criterionCountry,
   сountryData,
@@ -55,10 +56,10 @@ export function TeacherList({
   const changeRotate = change.rotate;
   const selectedButton = change.selectButton;
 
-  // function clear() {
-  //   setSelectedCountry([]);
-  //   setSelectedLanguage([]);
-  // }
+  function clear() {
+    setSelectedCountry([]);
+    setSelectedLanguage([]);
+  }
 
   // const filteredTeachersByLanguage = jsonData.filter((teacher) => {
   //   return selectedLanguage.every((el) => {
@@ -150,7 +151,7 @@ export function TeacherList({
 
         <Sort change={change} setChange={setChange} />
 
-        <ClearAll />
+        <ClearAll clear={clear} />
 
         <FilterByPrice
           setPackageMin={setPackageMin}
