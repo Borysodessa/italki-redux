@@ -26,14 +26,12 @@ export function Filter({
     if (selectedTarget.includes(i)) {
       setSelectedTarget(selectedTarget.filter((el) => el !== i));
     } else {
-      console.log(">>>>", { selectedTarget, i });
       setSelectedTarget([...selectedTarget, i]);
     }
   }
 
   function filtersMenuButton() {
     setOpenButton(() => !openButton);
-
     setIsRotated(!isRotated);
   }
 

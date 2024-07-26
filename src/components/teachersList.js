@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { countryfilter } from "../redux/action";
 import { languageFilter } from "../redux/action";
+import { clearFilter } from "../redux/action";
+import { changeParametr } from "../redux/action";
 
 import styles from "../styles/teachersList.module.css";
 
@@ -9,7 +11,6 @@ import { Teacher } from "./teacher";
 import { Filter } from "./filters";
 import { languageData } from "./languageData";
 import {
-  countryFullName,
   countryName,
   criterionCountry,
   сountryData,
@@ -33,61 +34,29 @@ export function TeacherList({
   packageMin,
   setPackageMin,
 }) {
-  // const [selectedLanguage, setSelectedLanguage] = useState([]);
-  // const [selectedCountry, setSelectedCountry] = useState([]);
-
-  const [change, setChange] = useState({
-    selectButton: "orderByLessons",
-    rotate: false,
-  });
-
   const country = useSelector((state) => {
     return state.filters.selectedCountry;
   });
   const language = useSelector((state) => {
     return state.filters.selectedLanguage;
   });
+  const changeCriteria = useSelector((state) => {
+    return state.sorts.change;
+  });
 
   const dispatch = useDispatch();
 
   const selectTargetCountry = (i) => dispatch(countryfilter(i));
   const selectTargetLanguage = (i) => dispatch(languageFilter(i));
+  const changeParamCriteria = (buttonName) =>
+    dispatch(changeParametr(buttonName));
 
-  const changeRotate = change.rotate;
-  const selectedButton = change.selectButton;
+  const changeRotate = changeCriteria.rotate;
+  const selectedButton = changeCriteria.selectButton;
 
-  function clear() {
-    setSelectedCountry([]);
-    setSelectedLanguage([]);
-  }
-
-  // const filteredTeachersByLanguage = jsonData.filter((teacher) => {
-  //   return selectedLanguage.every((el) => {
-  //     return [
-  //       ...teacher.teacher_info.teach_language,
-  //       ...teacher.teacher_info.also_speak,
-  //     ]
-  //       .map((item) => item["language"])
-  //       .includes(el);
-  //   });
-  // });
-
-  // function filteredTeachersByLanguage(jsonData, selectedLanguage) {
-  //   if (selectedLanguage.length === 0) {
-  //     return jsonData;
-  //   }
-
-  //   return jsonData.filter((teacher) => {
-  //     return selectedLanguage.every((el) => {
-  //       return [
-  //         ...teacher.teacher_info.teach_language,
-  //         ...teacher.teacher_info.also_speak,
-  //       ]
-  //         .map((item) => item["language"])
-  //         .includes(el);
-  //     });
-  //   });
-  // }
+  const clear = () => {
+    dispatch(clearFilter());
+  };
 
   const anyFilter = filteredTeachersByLanguage(jsonData, language).filter(
     (teacher) => {
@@ -149,7 +118,7 @@ export function TeacherList({
           teachersData={languageData(jsonData)}
         />
 
-        <Sort change={change} setChange={setChange} />
+        <Sort change={changeCriteria} setChange={changeParamCriteria} />
 
         <ClearAll clear={clear} />
 

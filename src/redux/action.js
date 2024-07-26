@@ -11,3 +11,17 @@ export const languageFilter = (selectedLanguage) => {
     payload: selectedLanguage,
   };
 };
+
+export const clearFilter = () => {
+  return {
+    type: "CLEAR",
+    payload: [],
+  };
+};
+
+export const changeParametr = (buttonName) => {
+  return {
+    type: "CHANGE",
+    payload: buttonName,
+  };
+};

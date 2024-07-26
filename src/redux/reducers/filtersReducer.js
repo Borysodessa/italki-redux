@@ -1,8 +1,6 @@
 const filtersInitialState = {
   selectedCountry: ["PK"],
   selectedLanguage: [],
-  packageMin: 0,
-  packageMax: 20,
 };
 
 export function filtersReducer(state = filtersInitialState, action) {
@@ -15,6 +13,13 @@ export function filtersReducer(state = filtersInitialState, action) {
   if (action.type === "SELECTEDLANGUAGE") {
     return {
       ...state,
+      selectedLanguage: action.payload,
+    };
+  }
+  if (action.type === "CLEAR") {
+    return {
+      ...state,
+      selectedCountry: action.payload,
       selectedLanguage: action.payload,
     };
   }

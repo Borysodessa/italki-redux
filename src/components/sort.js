@@ -1,6 +1,6 @@
 import styles from "../styles/sort.module.css";
-import { Arrow } from "./arrow";
 import classNames from "classnames";
+import { Arrow } from "./arrow";
 
 export const buttonNames = [
   "orderByLessons",
