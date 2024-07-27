@@ -1,10 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
 import { countryfilter } from "../redux/action";
 import { languageFilter } from "../redux/action";
-import { clearFilter } from "../redux/action";
-import { changeParametr } from "../redux/action";
-
 import styles from "../styles/teachersList.module.css";
 
 import { Teacher } from "./teacher";
@@ -26,14 +22,7 @@ import { sorting } from "./sorting";
 import { filteredTeachersByLanguage } from "./filteredTeachersByLanguage.js";
 import { filteringTeachersByPricesPerHour } from "./funcPrices.js";
 
-export function TeacherList({
-  jsonData,
-  setSelectedTeacher,
-  packageMax,
-  setPackageMax,
-  packageMin,
-  setPackageMin,
-}) {
+export function TeacherList({ jsonData }) {
   const country = useSelector((state) => {
     return state.filters.selectedCountry;
   });
@@ -43,20 +32,20 @@ export function TeacherList({
   const changeCriteria = useSelector((state) => {
     return state.sorts.change;
   });
+  const minPrice = useSelector((state) => {
+    return state.filters.minPrice;
+  });
+  const maxPrice = useSelector((state) => {
+    return state.filters.maxPrice;
+  });
 
   const dispatch = useDispatch();
 
   const selectTargetCountry = (i) => dispatch(countryfilter(i));
   const selectTargetLanguage = (i) => dispatch(languageFilter(i));
-  const changeParamCriteria = (buttonName) =>
-    dispatch(changeParametr(buttonName));
 
   const changeRotate = changeCriteria.rotate;
   const selectedButton = changeCriteria.selectButton;
-
-  const clear = () => {
-    dispatch(clearFilter());
-  };
 
   const anyFilter = filteredTeachersByLanguage(jsonData, language).filter(
     (teacher) => {
@@ -69,8 +58,8 @@ export function TeacherList({
   const anySorting = sorting(anyFilter, selectedButton, changeRotate);
 
   const teachers = filteringTeachersByPricesPerHour(
-    packageMin,
-    packageMax,
+    minPrice,
+    maxPrice,
     anySorting
   );
 
@@ -118,16 +107,11 @@ export function TeacherList({
           teachersData={languageData(jsonData)}
         />
 
-        <Sort change={changeCriteria} setChange={changeParamCriteria} />
+        <Sort />
 
-        <ClearAll clear={clear} />
+        <ClearAll />
 
-        <FilterByPrice
-          setPackageMin={setPackageMin}
-          setPackageMax={setPackageMax}
-          packageMin={packageMin}
-          packageMax={packageMax}
-        />
+        <FilterByPrice />
       </div>
 
       <div className={styles.flexWrap}>
@@ -141,7 +125,6 @@ export function TeacherList({
                 teacher={teacher}
                 selectedCountry={country}
                 key={teacher.user_info.user_id}
-                setSelectedTeacher={setSelectedTeacher}
               />
             </div>
           ))}

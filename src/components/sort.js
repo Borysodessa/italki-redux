@@ -1,3 +1,5 @@
+import { useSelector, useDispatch } from "react-redux";
+import { changeParametr } from "../redux/action";
 import styles from "../styles/sort.module.css";
 import classNames from "classnames";
 import { Arrow } from "./arrow";
@@ -9,12 +11,28 @@ export const buttonNames = [
   "orderByPrice",
 ];
 
-export function Sort({ change, setChange }) {
+export function Sort() {
+  const changeCriteria = useSelector((state) => {
+    return state.sorts.change;
+  });
+
+  const dispatch = useDispatch();
+
+  const changeParamCriteria = (buttonName) =>
+    dispatch(changeParametr(buttonName));
+
   function changeParam(buttonName) {
-    if (change.selectButton !== buttonName) {
-      setChange({ ...change, selectButton: buttonName, rotate: false });
+    if (changeCriteria.selectButton !== buttonName) {
+      changeParamCriteria({
+        ...changeCriteria,
+        selectButton: buttonName,
+        rotate: false,
+      });
     } else {
-      setChange({ ...change, rotate: !change.rotate });
+      changeParamCriteria({
+        ...changeCriteria,
+        rotate: !changeCriteria.rotate,
+      });
     }
   }
 
@@ -28,11 +46,14 @@ export function Sort({ change, setChange }) {
         >
           <Arrow
             arrowStyles={styles.arrowInSortButton}
-            isRotated={change.selectButton === buttonName && change.rotate}
+            isRotated={
+              changeCriteria.selectButton === buttonName &&
+              changeCriteria.rotate
+            }
           />
           <button
             className={classNames({
-              [styles.changeColor]: change.selectButton === buttonName,
+              [styles.changeColor]: changeCriteria.selectButton === buttonName,
               [styles.sortButton]: true,
             })}
           >

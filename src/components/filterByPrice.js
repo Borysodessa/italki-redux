@@ -1,20 +1,31 @@
-export function FilterByPrice({
-  setPackageMin,
-  setPackageMax,
-  packageMin,
-  packageMax,
-}) {
+import { useSelector, useDispatch } from "react-redux";
+import { getMinValue } from "../redux/action";
+import { getMaxValue } from "../redux/action";
+
+export function FilterByPrice() {
+  const minPrice = useSelector((state) => {
+    return state.filters.minPrice;
+  });
+  const maxPrice = useSelector((state) => {
+    return state.filters.maxPrice;
+  });
+
+  const dispatch = useDispatch();
+
+  const getPakageMinValue = (e) => dispatch(getMinValue(e));
+  const getPakageMaxValue = (e) => dispatch(getMaxValue(e));
+
   function pakageMinValue(e) {
-    setPackageMin(e.target.value);
+    getPakageMinValue(e.target.value);
   }
   function pakageMaxValue(e) {
-    setPackageMax(e.target.value);
+    getPakageMaxValue(e.target.value);
   }
 
   return (
     <div>
-      <input value={packageMin} onInput={(e) => pakageMinValue(e)}></input>
-      <input value={packageMax} onInput={(e) => pakageMaxValue(e)}></input>
+      <input value={minPrice} onInput={(e) => pakageMinValue(e)}></input>
+      <input value={maxPrice} onInput={(e) => pakageMaxValue(e)}></input>
     </div>
   );
 }

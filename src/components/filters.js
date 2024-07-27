@@ -1,7 +1,4 @@
 import { useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { countryfilter } from "../redux/action";
-
 import styles from "../styles/filter.module.css";
 import { Arrow } from "./arrow";
 
